@@ -18,14 +18,19 @@ jobs:
     permissions:
       contents: write
     steps:
-    - name: Download & MD5
+    - name: Download
       run: |
         mkdir temp
         cd temp
         wget ${{ github.event.inputs.URLA }}
         wget ${{ github.event.inputs.URLB }}
         wget ${{ github.event.inputs.URLC }}
+
+    - name: Calc sum
+      run: |
+        cd temp
         md5sum *
+        sha256sum *
 
     - name: Upload
       uses: softprops/action-gh-release@v1
